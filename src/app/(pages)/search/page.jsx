@@ -3,54 +3,70 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Toast from "@/components/Toast";
+import { useRouter } from "next/navigation";
 
 import api from "@/helper/api.interceptor";
 import "./Search.css";
 import { useLoading } from "@/components/LoadingProvider";
 
 function Search() {
+  const router = useRouter();
+
   const [query, setQuery] = useState("");
   const [anime, setAnime] = useState([]);
   const [searched, setSearched] = useState(false);
   const [toast, setToast] = useState("");
   const [favourites, setFavourites] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const { loading, startLoading, stopLoading } = useLoading();
   const sliderRef = useRef(null);
 
-  // Load favourites
+  // CHECK LOGIN STATUS
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("loggedIn");
+
+    setLoggedIn(loginStatus === "true");
+  }, []);
+
+  // LOAD FAVOURITES
   useEffect(() => {
     const savedFavourites =
       JSON.parse(localStorage.getItem("favourites")) || [];
+
     setFavourites(savedFavourites);
   }, []);
 
-  // Toggle favourite
- const toggleFavourite = (anime) => {
+  // TOGGLE FAVOURITE
+  const toggleFavourite = (animeItem) => {
     if (!loggedIn) {
       router.push("/login");
       return;
     }
 
     const alreadyFavourite = favourites.some(
-      (favourite) => favourite.id === anime.id,
+      (favourite) => favourite.id === animeItem.id,
     );
 
     let updatedFavourites;
 
+    // REMOVE FAVOURITE
     if (alreadyFavourite) {
       updatedFavourites = favourites.filter(
-        (favourite) => favourite.id !== anime.id,
+        (favourite) => favourite.id !== animeItem.id,
       );
 
       setToast("Removed from favourites");
-    } else {
+    }
+
+    // ADD FAVOURITE
+    else {
       const favouriteAnime = {
-        id: anime.id,
-        title: anime.title,
-        image: anime.image,
-        score: anime.score,
-        type: anime.type,
+        id: animeItem.id,
+        title: animeItem.title,
+        image: animeItem.image,
+        score: animeItem.score,
+        type: animeItem.type,
       };
 
       updatedFavourites = [...favourites, favouriteAnime];
@@ -63,7 +79,7 @@ function Search() {
     localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
   };
 
-  // Load default anime from Kitsu
+  // LOAD DEFAULT ANIME FROM KITSU
   useEffect(() => {
     const getAnime = async () => {
       startLoading();
@@ -82,7 +98,7 @@ function Search() {
     getAnime();
   }, []);
 
-  // Search anime
+  // SEARCH ANIME
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -107,7 +123,7 @@ function Search() {
     }
   };
 
-  // Slide left
+  // SLIDE LEFT
   const slideLeft = () => {
     if (!sliderRef.current) {
       return;
@@ -119,7 +135,7 @@ function Search() {
     });
   };
 
-  // Slide right
+  // SLIDE RIGHT
   const slideRight = () => {
     if (!sliderRef.current) {
       return;
@@ -194,7 +210,7 @@ function Search() {
 
                       <span>{item.type || "Anime"}</span>
                     </div>
-                    
+
                     <div className="fav_cont">
                       <Link
                         href={`/search/anime/${item.id}`}
@@ -207,6 +223,11 @@ function Search() {
                         type="button"
                         className="favourite-button"
                         onClick={() => toggleFavourite(item)}
+                        aria-label={
+                          isFavourite
+                            ? "Remove from favourites"
+                            : "Add to favourites"
+                        }
                       >
                         {isFavourite ? "❤️" : "🤍"}
                       </button>
@@ -232,7 +253,10 @@ function Search() {
           <p className="no-results">No anime found.</p>
         )}
       </section>
-       <Toast message={toast} onClose={() => setToast("")} />
+
+      {/* TOAST */}
+
+      <Toast message={toast} onClose={() => setToast("")} />
     </main>
   );
 }
