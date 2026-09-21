@@ -1,0 +1,686 @@
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+html {
+  height: auto;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+* {
+  line-height: 1.2;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.2;
+  width: 100%;
+}
+
+body.no-scroll-body {
+  overflow-y: hidden;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  background-color: transparent;
+  color: unset;
+  outline: none;
+  text-decoration: none;
+  -webkit-transition: all ease-in-out 0.4s;
+  -moz-transition: all ease-in-out 0.4s;
+  -ms-transition: all ease-in-out 0.4s;
+  -o-transition: all ease-in-out 0.4s;
+  transition: all ease-in-out 0.4s;
+}
+
+a:focus,
+a:hover {
+  outline: 0;
+  text-decoration: unset;
+  color: unset;
+}
+
+img {
+  max-width: 100%;
+  transition: var(--common-transition);
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  display: block;
+}
+
+.relative {
+  position: relative;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+
+.p0 {
+  padding: 0 !important;
+}
+
+.main-container-fluid {
+  width: 91%;
+  margin: 0 auto;
+}
+
+.main-container {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.main-container-2 {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.mini-container {
+  width: 65%;
+  margin: 0 auto;
+}
+
+.content_accordian {
+  display: none;
+}
+
+.section-padding {
+  padding: 7.5rem 0;
+}
+
+.section-padding-half {
+  padding: 5rem 0;
+}
+
+.section-padding-small {
+  padding: 2rem 0;
+}
+
+.hover-enable {
+  display: none;
+}
+
+.hover-disable {
+  display: inline-block;
+}
+
+.mobile-image {
+  display: none;
+}
+
+.web-image {
+  display: block;
+}
+
+div:focus-visible,
+img:focus-visible,
+button:focus-visible {
+  outline: none;
+  border: none;
+}
+
+.visible-tab-mobile {
+  display: none !important;
+}
+
+.visible-mobile-only {
+  display: none !important;
+}
+
+.flex-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inner-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inner-flex-small {
+  gap: var(--small-gap-size);
+}
+
+.inner-flex-small-24 {
+  gap: var(--small-gap-size-24);
+}
+
+.inner-flex-small-32 {
+  gap: var(--small-gap-size-32);
+}
+
+.inner-flex-smallest {
+  gap: 0.25rem;
+}
+
+.inner-flex-medium {
+  gap: var(--medium-gap-size);
+}
+
+.inner-flex-medium-48 {
+  gap: var(--medium-gap-size-48);
+}
+
+.inner-flex-medium-40 {
+  gap: var(--medium-gap-size-40);
+}
+
+.inner-flex-big {
+  gap: var(--big-gap-size);
+}
+
+.inner-flex-zero {
+  gap: 0;
+}
+
+.big-gap {
+  gap: var(--big-gap-size) !important;
+}
+
+.inner-flex-large {
+  gap: 10rem;
+}
+
+.inner-flex-common {
+  gap: var(--common-gap-size);
+}
+
+.inner-flex-center {
+  text-align: center;
+  align-items: center;
+}
+.two-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.white-color {
+  color: var(--white-color) !important;
+}
+
+.black-color {
+  color: #000000 !important;
+}
+
+.highlight-color {
+  color: var(--highlight-color) !important;
+}
+
+.secondary-color {
+  color: var(--secondary-color) !important;
+}
+.secondary-bg {
+  background-color: var(--secondary-color) !important;
+}
+.primary-color {
+  color: var(--primary-color) !important;
+}
+
+.gray-color {
+  color: var(--gray-color) !important;
+}
+
+.section-paregraph-color {
+  color: var(--section-paregraph-color) !important;
+}
+
+.secondary-highlight-color {
+  color: var(--secondary-highlight-color) !important;
+}
+
+.highlight-bg {
+  background-color: var(--highlight-color) !important;
+}
+
+.lightgray-bg {
+  background-color: #fafafa !important;
+}
+
+.j-c-sb {
+  justify-content: space-between;
+}
+
+.mlauto {
+  margin-left: auto;
+}
+
+.mrauto {
+  margin-right: auto;
+}
+
+.m0auto {
+  margin: 0 auto;
+}
+
+.wfc {
+  width: fit-content;
+}
+
+.wmc {
+  width: max-content;
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.w50 {
+  width: 50% !important;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.j-c-c {
+  justify-content: center;
+}
+
+.alc {
+  align-items: center;
+}
+
+.alend {
+  align-items: end;
+}
+
+.alstart {
+  align-items: start;
+}
+
+.filterIcon {
+  filter: invert(1);
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+.transition {
+  transition: var(--common-transition);
+}
+
+.scaleOne {
+  scale: 1;
+  transition: var(--common-transition);
+}
+
+.scaleOne:hover {
+  scale: 1.1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.p0 {
+  padding: 0 !important;
+}
+
+.pt0 {
+  padding-top: 0 !important;
+}
+
+.pb0 {
+  padding-bottom: 0 !important;
+}
+
+/* fonts css */
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined" !important;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  vertical-align: middle;
+}
+
+.banner-title h1,
+.banner-title h2 {
+  font-size: var(--banner-title-font-size);
+  font-family: var(--bold-font-family);
+}
+
+.banner-title h1 span,
+.banner-title h2 span {
+  font-size: var(--section-big-title-font-size);
+  font-family: var(--canela-medium-font-family);
+  font-style: italic;
+}
+
+.banner-title-big h1,
+.banner-title-big h2 {
+  font-size: var(--banner-title-font-size-big);
+  font-family: var(--bold-font-family);
+}
+
+.banner-title-big h1 span,
+.banner-title-big h2 span {
+  font-size: var(--banner-title-font-size-big);
+  font-family: var(--canela-medium-font-family);
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+/* .banner-title h1 span,
+.banner-title h2 span {
+    color: var(--secondary-color);
+} */
+
+.section-title h3,
+.section-title h2 {
+  font-size: var(--section-title-font-size);
+  font-family: var(--bold-font-family);
+}
+
+.section-title h3 span,
+.section-title h2 span {
+  font-size: var(--section-title-font-size-48);
+  font-family: var(--canela-medium-font-family);
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+.section-title-48 h3,
+.section-title-48 h2 {
+  font-size: var(--section-title-font-size-48);
+  font-family: var(--bold-font-family);
+}
+.section-title-32 h3,
+.section-title-32 h4,
+.section-title-32 h4 span,
+.section-title-32 h3 span {
+  font-size: var(--section-title-font-size-32);
+  font-family: var(--medium-font-family);
+  /* font-family: var(--canela-medium-font-family); */
+  /* color: var(--secondary-color); */
+  /* font-style: italic; */
+}
+.section-title-32 h4 span,
+.section-title-32 h3 span {
+  font-size: var(--section-title-font-size-32);
+  font-family: var(--canela-regular-font-family);
+  color: var(--secondary-color);
+  font-style: italic;
+}
+.section-content p,
+.section-content p span {
+  font-size: var(--content-font-size);
+  line-height: 1.5;
+  color: var(--section-paregraph-color);
+}
+
+.section-content-small p,
+.section-content-small p span {
+  font-size: var(--small-content-font-size);
+  line-height: 1.5;
+}
+
+/* .section-content p span {
+  color: var(--secondary-color);
+} */
+
+.section-paragraph p,
+.section-paragraph p span {
+  font-size: var(--paragraph-font-size);
+  line-height: 1.5;
+  color: var(--section-paregraph-color);
+}
+
+/* .section-paragraph p span {
+  color: var(--secondary-color);
+  font-family: var(--canela-medium-font-family);
+  font-style: italic;
+} */
+
+.section-text p,
+.section-text span,
+.section-text p span {
+  font-size: 1rem !important;
+  line-height: 1.25;
+}
+
+.section-text p span {
+  color: var(--secondary-color);
+}
+
+.section-subtitle h4,
+.section-subtitle h4 span {
+  font-size: var(--section-subtitle-font-size);
+  font-family: var(--semibold-font-family);
+  color: var(--primary-color);
+}
+
+.section-subtitle h4 span {
+  color: var(--secondary-color);
+}
+
+.smallest-font p {
+  font-size: 0.85rem;
+}
+
+.link-font-size a p,
+.link-font-size a p span.material-symbols-outlined,
+.link-font-size p {
+  font-size: var(--link-font-size);
+}
+
+.smarthomes-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  transition: var(--common-transition);
+  border-radius: 0;
+  width: fit-content;
+  justify-content: center;
+  outline: unset;
+  cursor: pointer;
+}
+
+.smarthomes-button p,
+.smarthomes-button span {
+  line-height: 1 !important;
+  font-size: 1.25rem;
+  font-family: var(--medium-font-family);
+}
+
+.button-style-primary {
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.button-style-primary span,
+.button-style-primary p {
+  color: var(--white-color);
+  transition: var(--common-transition);
+}
+
+.button-style-secondary {
+  border: 1px solid var(--secondary-color);
+  background-color: var(--secondary-color);
+}
+
+.button-style-secondary span,
+.button-style-secondary p {
+  color: var(--white-color);
+  transition: var(--common-transition);
+}
+
+.button-style-white {
+  border: 1px solid var(--white-color);
+  background-color: var(--white-color);
+}
+
+.button-style-white span,
+.button-style-white p {
+  color: var(----primary-color-color);
+  transition: var(--common-transition);
+}
+
+.button-style-white.highlight-btn-font span,
+.button-style-white.highlight-btn-font p {
+  color: var(--highlight-color);
+  transition: var(--common-transition);
+}
+
+.button-style-trans {
+  border: 1px solid var(--white-color);
+  background-color: transparent;
+}
+
+.button-style-trans span,
+.button-style-trans p {
+  color: var(--white-color);
+  transition: var(--common-transition);
+}
+
+.button-style-border {
+  border: 1px solid var(--primary-color);
+  background-color: transparent;
+}
+
+.button-style-border span,
+.button-style-border p {
+  color: var(--primary-color);
+  transition: var(--common-transition);
+}
+
+.button-style-border-secondary {
+  border: 1px solid var(--secondary-color);
+  background-color: transparent;
+}
+.button-style-border-secondary span,
+.button-style-border-secondary p {
+  color: var(--secondary-color);
+  transition: var(--common-transition);
+}
+/* CSS STarts here */
