@@ -14,7 +14,6 @@ function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [toast, setToast] = useState("");
   const { startLoading, stopLoading } = useLoading();
-
   const router = useRouter();
 
   // Check login and get favourites

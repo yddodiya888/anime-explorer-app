@@ -1,11 +1,24 @@
 "use client";
 
+import { useEffect } from "react";
 import { useLoading } from "../LoadingProvider";
 
 import "./PageLoader.css";
 
 function PageLoader() {
   const { loading } = useLoading();
+
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [loading]);
 
   if (!loading) {
     return null;
@@ -14,27 +27,17 @@ function PageLoader() {
   return (
     <div className="page-loader">
       <div className="loader-content">
-        <div className="loader-animation">
-          <div className="loader-ring"></div>
 
-          <div className="loader-orbit orbit-one"></div>
-
-          <div className="loader-orbit orbit-two"></div>
-
-          <div className="loader-center">
-            🎌
-          </div>
-        </div>
-
-        <h2>ANIME EXPLORER</h2>
-
-        <p>Loading your adventure...</p>
+        <h1>ANIME EXPLORER</h1>
 
         <div className="loader-dots">
           <span></span>
           <span></span>
           <span></span>
         </div>
+
+        <p>Exploring your anime world...</p>
+
       </div>
     </div>
   );

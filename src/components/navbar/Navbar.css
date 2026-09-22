@@ -12,7 +12,9 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.log_out{
+  color: red;
+}
 .navbar-logo {
   font-size: 26px;
   font-weight: bold;

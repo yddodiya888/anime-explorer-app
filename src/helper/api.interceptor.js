@@ -80,11 +80,11 @@ const api = {
   },
 
   // Search
-  searchAnime: async (query) => {
+  searchAnime: async (query, page = 1) => {
     const response = await fetch(
       `https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(
         query
-      )}&page[size]=10`
+      )}&page[number]=${page}&page[size]=10`
     );
 
     const data = await response.json();
@@ -112,9 +112,9 @@ const api = {
 
     return {
       data: anime,
+      links: data.links,
     };
   },
-
   // Anime detail
   getKitsuAnimeDetail: async (id) => {
     const response = await fetch(

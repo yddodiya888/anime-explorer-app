@@ -91,7 +91,7 @@ export default function Navbar() {
             type="button"
             onClick={() => handleProtectedPage("/favourites")}
           >
-            ❤️
+            Favourites
           </button>
 
           <Link href="/contact">Contact Us</Link>
@@ -156,7 +156,7 @@ export default function Navbar() {
             type="button"
             onClick={() => handleProtectedPage("/favourites")}
           >
-            ❤️ Favourite
+            Favourite
           </button>
 
           <Link href="/contact" onClick={closeMenu}>

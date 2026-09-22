@@ -196,12 +196,8 @@ export default function KitsuAnimeDetail() {
         </div>
 
         <div className="detail-content">
-          <h1>{title}</h1>
-
-          <p className="synopsis">
-            {attributes.synopsis || "No description available."}
-          </p>
-
+          <div className="favourite_cont">
+            <h1>{title}</h1>
           {/* FAVOURITE BUTTON */}
 
           <button
@@ -209,8 +205,15 @@ export default function KitsuAnimeDetail() {
             className="favourite-button"
             onClick={toggleFavourite}
           >
-            {isFavourite ? "❤️ Remove Favourite" : "🤍 Add Favourite"}
-          </button>
+              {isFavourite ? "❤️" : "🤍"}
+            </button>
+
+          </div>
+          
+
+          <p className="synopsis">
+            {attributes.synopsis || "No description available."}
+          </p>
 
           {/* META INFORMATION */}
 

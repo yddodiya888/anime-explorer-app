@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Toast from "@/components/Toast";
-
+// import AnimeDetailSkeleton from "@/components/AnimeDetailSkeleton";
 import api from "@/helper/api.interceptor";
 
 import "./AnimeDetail.css";
@@ -18,6 +18,7 @@ function AnimeDetail() {
   const [anime, setAnime] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [toast, setToast] = useState("");
+  // const [loading, setLoading] = useState(true);
 
   // CHECK LOGIN
   useEffect(() => {
@@ -143,7 +144,9 @@ function AnimeDetail() {
     attributes.titles?.en ||
     attributes.titles?.canonical ||
     "No title available";
-
+  // if (loading) {
+  //   return <AnimeDetailSkeleton />;
+  // }
   return (
     <ProtectedRoute>
       <main className="anime-detail">

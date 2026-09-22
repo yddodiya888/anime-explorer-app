@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Toast from "@/components/Toast";
 import { useRouter } from "next/navigation";
-
+import SkeletonCard from "@/components/SkeletonCard";
 import api from "@/helper/api.interceptor";
 import "./Search.css";
 import { useLoading } from "@/components/LoadingProvider";
+import AnimeImage from "@/components/AnimeImage";
 
 function Search() {
   const router = useRouter();
@@ -19,7 +20,17 @@ function Search() {
   const [favourites, setFavourites] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // SEARCH LOADING
+  const [searchLoading, setSearchLoading] = useState(false);
+
+  // SEARCH PAGINATION
+  const [searchPage, setSearchPage] = useState(1);
+  const [hasMoreResults, setHasMoreResults] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [searchError, setSearchError] = useState("");
+
   const { loading, startLoading, stopLoading } = useLoading();
+
   const sliderRef = useRef(null);
 
   // CHECK LOGIN STATUS
@@ -106,20 +117,53 @@ function Search() {
       return;
     }
 
-    startLoading();
+    setSearchLoading(true);
+    setSearchError("");
+    setSearchPage(1);
 
     try {
-      const data = await api.searchAnime(query);
+      const data = await api.searchAnime(query, 1);
 
       setAnime(data.data || []);
       setSearched(true);
+
+      setHasMoreResults(Boolean(data.links?.next));
     } catch (error) {
       console.error("SEARCH ERROR:", error);
 
       setAnime([]);
       setSearched(true);
+      setHasMoreResults(false);
+
+      setSearchError("Something went wrong. Please try again.");
     } finally {
-      stopLoading();
+      setSearchLoading(false);
+    }
+  };
+  // LOAD MORE SEARCH RESULTS
+  const handleLoadMore = async () => {
+    if (loadingMore || !hasMoreResults) {
+      return;
+    }
+
+    const nextPage = searchPage + 1;
+
+    setLoadingMore(true);
+
+    try {
+      const data = await api.searchAnime(query, nextPage);
+
+      // ADD NEW RESULTS TO EXISTING RESULTS
+      setAnime((currentAnime) => [...currentAnime, ...(data.data || [])]);
+
+      setSearchPage(nextPage);
+
+      // CHECK IF ANOTHER PAGE EXISTS
+      setHasMoreResults(Boolean(data.links?.next));
+    } catch (error) {
+      console.error("LOAD MORE ERROR:", error);
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -162,8 +206,8 @@ function Search() {
             onChange={(e) => setQuery(e.target.value)}
           />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Searching..." : "Search"}
+          <button type="submit" disabled={searchLoading}>
+            {searchLoading ? "Searching..." : "Search"}
           </button>
         </form>
       </section>
@@ -181,76 +225,173 @@ function Search() {
           </p>
         </div>
 
-        <div className="slider-wrapper">
-          <button
-            className="slider-button left"
-            onClick={slideLeft}
-            type="button"
-          >
-            ‹
-          </button>
+        {/* SEARCH LOADER */}
 
-          <div className="anime-slider" ref={sliderRef}>
-            {anime.map((item) => {
-              const isFavourite = favourites.some(
-                (favourite) => favourite.id === item.id,
-              );
-
-              return (
-                <article className="search-card" key={item.id}>
-                  <div className="search-image">
-                    <img src={item.image} alt={item.title} />
-                  </div>
-
-                  <div className="search-info">
-                    <h3>{item.title}</h3>
-
-                    <div className="search-meta">
-                      <span>⭐ {item.score || "N/A"}</span>
-
-                      <span>{item.type || "Anime"}</span>
-                    </div>
-
-                    <div className="fav_cont">
-                      <Link
-                        href={`/search/anime/${item.id}`}
-                        className="details-link"
-                      >
-                        View Details
-                      </Link>
-
-                      <button
-                        type="button"
-                        className="favourite-button"
-                        onClick={() => toggleFavourite(item)}
-                        aria-label={
-                          isFavourite
-                            ? "Remove from favourites"
-                            : "Add to favourites"
-                        }
-                      >
-                        {isFavourite ? "❤️" : "🤍"}
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+        {searchLoading ? (
+          <div className="search-results-grid skeleton-grid">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
           </div>
+        ) : searched ? (
+          <>
+            {/* SEARCH RESULTS */}
 
-          <button
-            className="slider-button right"
-            onClick={slideRight}
-            type="button"
-          >
-            ›
-          </button>
-        </div>
+            <div className="search-results-grid">
+              {anime.map((item) => {
+                const isFavourite = favourites.some(
+                  (favourite) => favourite.id === item.id,
+                );
+
+                return (
+                  <article className="search-card" key={item.id}>
+                    <div className="search-image">
+                      <AnimeImage src={item.image} alt={item.title} />
+                    </div>
+
+                    <div className="search-info">
+                      <h3>{item.title}</h3>
+
+                      <div className="search-meta">
+                        <span>⭐ {item.score || "N/A"}</span>
+
+                        <span>{item.type || "Anime"}</span>
+                      </div>
+
+                      <div className="fav_cont">
+                        <Link
+                          href={`/search/anime/${item.id}`}
+                          className="details-link"
+                        >
+                          View Details
+                        </Link>
+
+                        <button
+                          type="button"
+                          className="favourite-button"
+                          onClick={() => toggleFavourite(item)}
+                          aria-label={
+                            isFavourite
+                              ? "Remove from favourites"
+                              : "Add to favourites"
+                          }
+                        >
+                          {isFavourite ? "❤️" : "🤍"}
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {/* LOAD MORE */}
+
+            {hasMoreResults && anime.length > 0 && (
+              <div className="load-more-container">
+                <button
+                  type="button"
+                  className="load-more-button"
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                >
+                  {loadingMore ? "Loading..." : "Load More"}
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          /* EXPLORE CAROUSEL */
+
+          <div className="slider-wrapper">
+            <button
+              className="slider-button left"
+              onClick={slideLeft}
+              type="button"
+            >
+              ‹
+            </button>
+
+            <div className="anime-slider" ref={sliderRef}>
+              {anime.map((item) => {
+                const isFavourite = favourites.some(
+                  (favourite) => favourite.id === item.id,
+                );
+
+                return (
+                  <article className="search-card" key={item.id}>
+                    <div className="search-image">
+                      <AnimeImage src={item.image} alt={item.title} />
+                    </div>
+
+                    <div className="search-info">
+                      <h3>{item.title}</h3>
+
+                      <div className="search-meta">
+                        <span>⭐ {item.score || "N/A"}</span>
+
+                        <span>{item.type || "Anime"}</span>
+                      </div>
+
+                      <div className="fav_cont">
+                        <Link
+                          href={`/search/anime/${item.id}`}
+                          className="details-link"
+                        >
+                          View Details
+                        </Link>
+
+                        <button
+                          type="button"
+                          className="favourite-button"
+                          onClick={() => toggleFavourite(item)}
+                          aria-label={
+                            isFavourite
+                              ? "Remove from favourites"
+                              : "Add to favourites"
+                          }
+                        >
+                          {isFavourite ? "❤️" : "🤍"}
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <button
+              className="slider-button right"
+              onClick={slideRight}
+              type="button"
+            >
+              ›
+            </button>
+          </div>
+        )}
 
         {/* NO RESULTS */}
 
-        {!loading && searched && anime.length === 0 && (
-          <p className="no-results">No anime found.</p>
+        {!searchLoading && searched && anime.length === 0 && (
+          <div className="search-empty-state">
+            {searchError ? (
+              <>
+                <h3>⚠️ Something went wrong</h3>
+
+                <p>{searchError}</p>
+
+                <button type="button" onClick={handleSearch}>
+                  Try Again
+                </button>
+              </>
+            ) : (
+              <>
+                <h3>🔍 No anime found</h3>
+
+                <p>We couldn't find any anime for "{query}".</p>
+              </>
+            )}
+          </div>
         )}
       </section>
 
