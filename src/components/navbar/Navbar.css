@@ -54,3 +54,192 @@
 .log_out:hover {
   color: #5b4df5;
 }
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobile-menu-button {
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mobile-menu-button span {
+  display: block;
+
+  width: 25px;
+  height: 2px;
+
+  background: #111;
+
+  transition: 0.3s ease;
+}
+
+
+/* =========================
+   MOBILE SIDE MENU
+========================= */
+
+.mobile-side-menu {
+  position: fixed;
+
+  top: 0;
+  right: -320px;
+
+  width: 300px;
+  height: 100vh;
+
+  background: #fff;
+
+  z-index: 1001;
+
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.12);
+
+  transition: right 0.3s ease;
+
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.mobile-side-menu.open {
+  right: 0;
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+.mobile-menu-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s ease;
+}
+
+.mobile-menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* =========================
+   MENU HEADER
+========================= */
+
+.mobile-menu-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 25px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu-header h2 {
+  margin: 0;
+
+  font-size: 22px;
+  color: #111;
+}
+
+.mobile-close-button {
+  border: none;
+  background: transparent;
+
+  font-size: 32px;
+  line-height: 1;
+
+  color: #111;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MENU LINKS
+========================= */
+
+.mobile-menu-links {
+  display: flex;
+
+  flex-direction: column;
+
+  margin-top: 20px;
+}
+
+.mobile-menu-links a,
+.mobile-menu-links button {
+  width: 100%;
+
+  padding: 16px 5px;
+
+  border: none;
+  border-bottom: 1px solid #eee;
+
+  background: transparent;
+
+  color: #111;
+
+  font-family: inherit;
+  font-size: 16px;
+
+  text-align: left;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.mobile-menu-links a:hover,
+.mobile-menu-links button:hover {
+  color: #6658ff;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .navbar-links {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .navbar-container {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+  }
+
+}

@@ -10,8 +10,8 @@ import api from "@/helper/api.interceptor";
 import "./Anime.css";
 
 function Anime() {
+  
   const router = useRouter();
-
   const [anime, setAnime] = useState([]);
   const [page, setPage] = useState(1);
   const [type, setType] = useState("");

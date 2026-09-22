@@ -13,7 +13,6 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 function AnimeDetail() {
   const { id } = useParams();
   const router = useRouter();
-
   const [loggedIn, setLoggedIn] = useState(false);
   const [favourites, setFavourites] = useState([]);
   const [anime, setAnime] = useState(null);
