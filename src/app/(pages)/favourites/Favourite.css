@@ -1,149 +1,251 @@
-.ourite-page {
+/* ================================
+   Favourite Page
+================================ */
+
+.favourite-page {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 0 100px;
+  padding: 70px 0 100px;
 }
 
-/* Heading */
+
+/* ================================
+   Heading
+================================ */
 
 .favourite-heading {
-  margin-bottom: 40px;
+  margin-bottom: 45px;
   text-align: center;
 }
 
 .favourite-heading h1 {
   margin: 0 0 10px;
   color: #111;
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 38px;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .favourite-heading p {
   margin: 0;
-  color: #666;
-  font-size: 16px;
+  color: #777;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* Favourite Grid */
+
+/* ================================
+   Favourite Grid
+================================ */
 
 .favourite-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
 }
 
-/* Card */
+
+/* ================================
+   Favourite Card
+================================ */
 
 .favourite-card {
+  display: flex;
+  flex-direction: column;
+
   overflow: hidden;
 
   background: #fff;
-  border: 1px solid #e9e9e9;
+
+  border: 1px solid #e9e9ef;
   border-radius: 14px;
 
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
 
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .favourite-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+  transform: translateY(-6px);
+
+  border-color: #ddd9ff;
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Image */
+
+/* ================================
+   Image
+================================ */
 
 .favourite-image {
   width: 100%;
   height: 330px;
+
   overflow: hidden;
+
+  background: #f1f1f5;
 }
 
 .favourite-image img {
+  display: block;
+
   width: 100%;
   height: 100%;
-  display: block;
 
   object-fit: cover;
 
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .favourite-card:hover .favourite-image img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
-/* Card Information */
+
+/* ================================
+   Anime Image Wrapper
+   Used by AnimeImage.jsx
+================================ */
+
+.favourite-image .anime-image-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.favourite-image .anime-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ================================
+   Card Information
+================================ */
 
 .favourite-info {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
   padding: 18px;
 }
 
 .favourite-info h2 {
-  margin: 0 0 12px;
+  margin: 0 0 13px;
 
   color: #111;
+
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 650;
+
+  line-height: 1.4;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Meta */
+
+/* ================================
+   Meta Information
+================================ */
 
 .favourite-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
+  gap: 10px;
+
   margin-bottom: 18px;
 
-  color: #666;
+  color: #777;
+
   font-size: 13px;
 }
 
-/* Details Link */
-
-.details-link {
+.favourite-meta span {
   display: inline-flex;
   align-items: center;
+
+  min-width: 0;
+}
+
+.favourite-meta span:last-child {
+  padding: 4px 9px;
+
+  border-radius: 5px;
+
+  background: #f2f1ff;
+
+  color: #6256e8;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* ================================
+   Details Link
+================================ */
+
+.details-link {
+  display: flex;
+  align-items: center;
   justify-content: center;
+
   width: 100%;
-  height: 40px;
+  min-height: 40px;
+
   box-sizing: border-box;
+
+  border: 1px solid #7567ff;
   border-radius: 7px;
-  color:#5b4df5;
+
+  background: transparent;
+
+  color: #5b4df5;
+
   font-size: 13px;
   font-weight: 600;
 
   text-decoration: none;
 
-  transition: background 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* Empty State */
-
-.no-favourites {
-  width: 100%;
-  padding: 60px 0;
-  text-align: center;
-  color: #666;
-  font-size: 16px;
+.details-link:hover {
+  background: #7567ff;
+  color: #fff;
 }
+
+
+/* ================================
+   Remove Favourite
+================================ */
+
 .remove-favourite {
   width: 100%;
-  height: 40px;
+  min-height: 40px;
 
   margin-top: 10px;
+
   border: 1px solid #e53935;
   border-radius: 7px;
 
   background: #fff;
+
   color: #e53935;
 
   font-size: 13px;
@@ -151,43 +253,129 @@
 
   cursor: pointer;
 
-  transition: 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .remove-favourite:hover {
   background: #e53935;
   color: #fff;
 }
-/* Tablet */
 
-@media (max-width: 1000px) {
+.remove-favourite:active {
+  transform: scale(0.98);
+}
+
+
+/* ================================
+   Empty State
+================================ */
+
+.no-favourites {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 250px;
+
+  margin: 0;
+
+  box-sizing: border-box;
+
+  padding: 40px;
+
+  border: 1px dashed #dcdbe8;
+  border-radius: 14px;
+
+  background: #fafaff;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+/* ================================
+   Skeleton Support
+================================ */
+
+.favourite-grid .skeleton-card {
+  width: 100%;
+}
+
+.favourite-grid .skeleton-image {
+  width: 100%;
+  height: 330px;
+}
+
+
+/* ================================
+   Large Tablet
+================================ */
+
+@media (max-width: 1100px) {
   .favourite-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .favourite-image {
+    height: 310px;
+  }
+
+  .favourite-grid .skeleton-image {
+    height: 310px;
+  }
+}
+
+
+/* ================================
+   Tablet
+================================ */
+
+@media (max-width: 800px) {
+  .favourite-page {
+    width: 92%;
+    padding: 60px 0 80px;
+  }
+
+  .favourite-heading {
+    margin-bottom: 35px;
+  }
+
+  .favourite-heading h1 {
+    font-size: 32px;
+  }
+
+  .favourite-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
 
   .favourite-image {
     height: 300px;
   }
-}
 
-/* Small Tablet */
-
-@media (max-width: 750px) {
-  .favourite-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .favourite-image {
-    height: 320px;
+  .favourite-grid .skeleton-image {
+    height: 300px;
   }
 }
 
-/* Mobile */
 
-@media (max-width: 500px) {
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 550px) {
   .favourite-page {
-    width: 90%;
-    padding: 40px 0 70px;
+    width: 92%;
+    padding: 45px 0 70px;
   }
 
   .favourite-heading {
@@ -204,10 +392,45 @@
 
   .favourite-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 22px;
   }
 
   .favourite-image {
     height: 380px;
+  }
+
+  .favourite-grid .skeleton-image {
+    height: 380px;
+  }
+
+  .favourite-info {
+    padding: 17px;
+  }
+
+  .favourite-info h2 {
+    font-size: 17px;
+  }
+}
+
+
+/* ================================
+   Small Mobile
+================================ */
+
+@media (max-width: 380px) {
+  .favourite-page {
+    width: 90%;
+  }
+
+  .favourite-image {
+    height: 330px;
+  }
+
+  .favourite-grid .skeleton-image {
+    height: 330px;
+  }
+
+  .favourite-heading h1 {
+    font-size: 25px;
   }
 }
