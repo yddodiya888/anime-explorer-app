@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import "./Login.css";
@@ -12,6 +12,15 @@ export default function Login() {
 
   const router = useRouter();
 
+  // CHECK IF USER IS ALREADY LOGGED IN
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("loggedIn");
+
+    if (loggedIn === "true") {
+      router.replace("/");
+    }
+  }, [router]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -20,25 +29,30 @@ export default function Login() {
 
       window.dispatchEvent(new Event("loginStatusChanged"));
 
-      router.push("/");
+      // replace instead of push
+      router.replace("/");
     } else {
       setError("Invalid email or password.");
     }
   };
+
   return (
     <main className="login-page">
       <div className="explore_more">
         <h1>
-          Please , login for <br /> exploring more anime{" "}
+          Please, login for <br />
+          exploring more anime
         </h1>
       </div>
+
       <div className="login-box">
         <h1>Login</h1>
-{/* ehich ofrhe */}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-       <input
+
+            <input
               id="email"
               type="email"
               placeholder="Enter your email"
@@ -47,7 +61,6 @@ export default function Login() {
                 setEmail(e.target.value);
                 setError("");
               }}
-              
             />
           </div>
 
